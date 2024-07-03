@@ -1,22 +1,20 @@
 "use client";
 
-import { useSearchParams  } from 'next/navigation';
+import { usePathname  } from 'next/navigation'
 
 const ArticleDetails = () => {
-  const searchParams = useSearchParams();
-  const id = searchParams.get("articleId");
+  const articleId  = usePathname().split("/").pop();
 
-  if (!id) {
+  if (!articleId) {
     return <p>Loading...</p>;
   }
 
   return (
     <div>
-      <h1>Article {id}</h1>
-      <p>This is the content of article {id}.</p>
+      <h1>Article {articleId}</h1>
+      <p>This is the content of article {articleId}.</p>
     </div>
   );
 };
 
 export default ArticleDetails;
-
