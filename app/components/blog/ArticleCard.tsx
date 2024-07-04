@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import PropTypes from 'prop-types';
 
-const Card = ({ article }) => {
+const Card: React.FC<ArticlePreviewProps> = ({ article }) => {
   const router = useRouter();
   const handleClick = () => {
     router.push(`/blog/article/${article.key}`);
@@ -23,16 +22,6 @@ const Card = ({ article }) => {
       </div>
     </div>
   );
-};
-
-Card.propTypes = {
-  article: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    key: PropTypes.string.isRequired,
-    mediaUrl: PropTypes.string.isRequired,
-    addedAt: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Card;

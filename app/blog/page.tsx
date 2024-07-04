@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Card from '../components/Card';
+import Card from '../components/blog/ArticleCard';
 import Pagination from '../components/Pagination';
 
 const Blog = () => {
-  const [articles, setArticles] = useState<Article[]>([]);
+  const [articles, setArticles] = useState<ArticlePreview[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1); // Default to page 1
@@ -68,11 +68,3 @@ const Blog = () => {
 };
 
 export default Blog;
-
-interface Article {
-  id: number;
-  title: string;
-  key: string;
-  mediaUrl: string;
-  addedAt: string;
-}

@@ -7,30 +7,6 @@ import RecommendedArticles from '../../../components/blog/RecommendedArticles';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-interface Employer {
-  id: number;
-  name: string;
-  logoUrl: string;
-}
-
-interface Offer {
-  id: number;
-  slug: string;
-  title: string;
-  employer: Employer;
-  location: {
-    countryName: string;
-  };
-  salary: {
-    amountMin: number;
-    amountMax: number;
-    frequency: string;
-    type: string;
-    currency: string;
-  };
-  videoUrl: string | null;
-}
-
 interface RecommendedArticle {
   id: number;
   title: string;
@@ -60,7 +36,6 @@ interface Article {
   type: string;
   sections: Section[];
   recommended: RecommendedArticle[];
-  offers: Offer[];
 }
 
 const ArticleDetails = () => {
