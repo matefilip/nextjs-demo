@@ -15,11 +15,7 @@ interface Offer {
   title: string;
   employer: Employer;
   location: {
-    country: string;
     countryName: string;
-    location: string;
-    cityId: number | null;
-    cityName: string | null;
   };
   salary: {
     amountMin: number;
@@ -77,8 +73,6 @@ const ArticleDetails = () => {
 
     fetchArticle();
   }, [pathname]);
-
-  console.log(article);
 
   return (
 <div className="flex justify-center min-h-screen bg-gray-800 text-white">
