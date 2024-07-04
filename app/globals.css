@@ -1,3 +1,5 @@
+/* styles/global.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,12 +20,11 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url('public/european-union-eu-flag-uhd-4k-wallpaper.jpg');
+  background-position: center;
+  background-color: rgba(var(--background-start-rgb), 0.7);
+  background-blend-mode: multiply;
+  height: 100vh;
 }
 
 @layer utilities {
