@@ -12,7 +12,6 @@ interface RecommendedArticle {
   }
 
   interface ArticlePreview {
-    id: number;
     title: string;
     key: string;
     mediaUrl: string;
@@ -20,18 +19,8 @@ interface RecommendedArticle {
   }
   
   interface Article {
-    id: number;
-    addedAt: string;
-    categoryId: number;
-    categoryName: string;
-    key: string;
-    language: string;
-    lastEditedAt: string | null;
     mediaUrl: string;
-    metaDescription: string;
-    slug: string;
     title: string;
-    type: string;
     sections: Section[];
     recommended: RecommendedArticle[];
     offers: Offer[];

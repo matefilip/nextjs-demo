@@ -6,48 +6,35 @@ import ArticleContent from '../../../components/blog/ArticleContent';
 import RecommendedArticles from '../../../components/blog/RecommendedArticles';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-
-interface RecommendedArticle {
-  id: number;
-  title: string;
-  key: string;
-  addedAt: string;
-  mediaUrl: string;
-}
-
-interface Section {
-  type: string;
-  content: string;
-  alternativeText: string | null;
-}
-
-interface Article {
-  id: number;
-  addedAt: string;
-  categoryId: number;
-  categoryName: string;
-  key: string;
-  language: string;
-  lastEditedAt: string | null;
-  mediaUrl: string;
-  metaDescription: string;
-  slug: string;
-  title: string;
-  type: string;
-  sections: Section[];
-  recommended: RecommendedArticle[];
-}
+import LoadingSpinner from '@/app/components/LoadingSpinner';
 
 const ArticleDetails = () => {
   const [article, setArticle] = useState<Article | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     const fetchArticle = async () => {
+      setLoading(true);
       const articleId = pathname.split("/").pop();
-      const response = await fetch(`https://api.europa.jobs/blog/article/${articleId}`);
-      const data: Article = await response.json();
-      setArticle(data);
+      try{
+        const response = await fetch(`https://api.europa.jobs/blog/article/${articleId}`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles');
+        }
+        const data: Article = await response.json();
+        setArticle(data);
+      }
+      catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError('An unknown error occurred');
+        }
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchArticle();
@@ -61,7 +48,7 @@ const ArticleDetails = () => {
           <RecommendedArticles recommended={article.recommended} />
         </>
       ) : (
-        <p className="text-white">Loading...</p>
+        <LoadingSpinner />
       )}
     </div>
   );

@@ -3,17 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../components/blog/ArticleCard';
 import Pagination from '../components/Pagination';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const Blog = () => {
   const [articles, setArticles] = useState<ArticlePreview[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1); // Default to page 1
-  const [totalPages, setTotalPages] = useState(1); // Default to 1 page
+  const [currentPage, setCurrentPage] = useState(1); 
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchArticles = async () => {
-      setLoading(true); // Set loading to true when fetching new page
+      setLoading(true);
 
       try {
         const response = await fetch(`https://api.europa.jobs/blog?Type=candidate&pageNumber=${currentPage}`);
@@ -24,7 +25,7 @@ const Blog = () => {
 
         const { items, totalPages } = data;
         if (Array.isArray(items)) {
-          setArticles(items as Article[]);
+          setArticles(items as ArticlePreview[]);
           setTotalPages(totalPages);
         } else {
           throw new Error('Invalid data format');
@@ -41,14 +42,14 @@ const Blog = () => {
     };
 
     fetchArticles();
-  }, [currentPage]); // Run effect when currentPage changes
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
@@ -59,12 +60,13 @@ const Blog = () => {
     <div className="container mx-auto p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {articles.map(article => (
-          <Card key={article.id} article={article} />
+          <Card article={article} />
         ))}
       </div>
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
+
 };
 
 export default Blog;
