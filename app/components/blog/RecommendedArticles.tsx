@@ -13,11 +13,22 @@ const RecommendedArticles: React.FC<RecommendedArticlesProps> = ({ recommended }
       <h2 className="text-xl text-white mb-4 font-bold border-b border-gray-700 pb-2">Również polecane</h2>
       {recommended.map((rec, index) => (
         <div
-          className={`mb-6 ${index !== 0 ? 'border-t border-gray-700 pt-4' : ''} p-4 hover:bg-gray-700 cursor-default`}
+          className={`relative bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition transform hover:scale-105 border border-gray-300 mb-6 ${index !== 0 ? 'border-t border-gray-300 pt-0' : ''}`}
           onClick={() => router.push(`/blog/article/${rec.key}`)}
         >
-          <h3 className="text-lg font-bold text-white mb-2">{rec.title}</h3>
-          <img src={rec.mediaUrl} alt={rec.title} className="w-full h-auto rounded mb-2" />
+          <div className="relative h-full">
+            <img src={rec.mediaUrl} alt={rec.title} className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <h2 className="text-lg font-bold text-white text-center px-2" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.75)' }}>
+                {rec.title}
+              </h2>
+            </div>
+          </div>
+          <div className="p-4 relative">
+            <div className="absolute bottom-0 right-1 text-sm text-gray-500 bg-white bg-opacity-60 px-2 py-1 rounded">
+              {new Date(rec.addedAt).toLocaleDateString()}
+            </div>
+          </div>
         </div>
       ))}
     </div>

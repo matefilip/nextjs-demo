@@ -33,6 +33,7 @@ interface RecommendedArticle {
   
   interface Offer {
     title: string;
+    addedAt: string;
     employer: Employer;
     location: {
       countryName: string;

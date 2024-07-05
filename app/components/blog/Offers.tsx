@@ -1,11 +1,29 @@
 import React from 'react';
 
 const Offers: React.FC<OffersProps> = ({ offers }) => {
+  const renderFrequency = (offer: Offer) => {
+    let frequencyText = '';
+
+    switch (offer.salary.frequency) {
+      case 'monthly':
+        frequencyText = 'msc';
+        break;
+      case 'hourly':
+        frequencyText = 'h';
+        break;
+      default:
+        frequencyText = '';
+        break;
+    }
+
+    return frequencyText;
+  };
+
   return (
     <div className="fixed left-0 top-0 p-6 h-full w-1/6 bg-gray-900 shadow-lg overflow-y-auto">
       <h2 className="text-xl text-white mb-4 font-bold border-b border-gray-700 pb-2">Oferty pracy</h2>
       {offers.map((offer, index) => (
-        <div className={`mb-6 ${index !== 0 ? 'border-t border-gray-700 pt-4' : ''} p-4 hover:bg-gray-700 cursor-default`}>
+        <div key={index} className={`mb-6 ${index !== 0 ? 'border-t border-gray-700 pt-4' : ''} p-4 hover:bg-gray-800 cursor-pointer rounded-lg transition duration-300 transform hover:scale-105`}>
           <h3 className="text-lg font-bold text-white mb-2">{offer.title}</h3>
           {offer.employer.name && (
             <p className="text-gray-300 mb-2">
@@ -21,13 +39,13 @@ const Offers: React.FC<OffersProps> = ({ offers }) => {
           <p className="text-gray-300 mb-2">{offer.location.countryName}</p>
           <p className="text-gray-400">
             {offer.salary.amountMin && offer.salary.amountMax ? (
-              `${offer.salary.amountMin} - ${offer.salary.amountMax} ${offer.salary.currency} / ${offer.salary.frequency}`
+              `${offer.salary.amountMin} - ${offer.salary.amountMax} ${offer.salary.currency} / ${renderFrequency(offer)}`
             ) : offer.salary.amountMin ? (
-              `Od ${offer.salary.amountMin} ${offer.salary.currency} / ${offer.salary.frequency}`
+              `Od ${offer.salary.amountMin} ${offer.salary.currency} / ${renderFrequency(offer)}`
             ) : offer.salary.amountMax ? (
-              `Do ${offer.salary.amountMax} ${offer.salary.currency} / ${offer.salary.frequency}`
+              `Do ${offer.salary.amountMax} ${offer.salary.currency} / ${renderFrequency(offer)}`
             ) : (
-              'Pensja nieokreślona'
+              'Brak podanej stawki'
             )}
           </p>
         </div>
