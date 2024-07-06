@@ -7,6 +7,7 @@ import RecommendedArticles from '../../../components/blog/RecommendedArticles';
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import LoadingSpinner from '@/app/components/LoadingSpinner';
+import { ApiEndpoints } from '../../../components/blog/ApiKeys';
 
 const ArticleDetails = () => {
   const [article, setArticle] = useState<Article | null>(null);
@@ -19,11 +20,12 @@ const ArticleDetails = () => {
       setLoading(true);
       const articleId = pathname.split("/").pop();
       try{
-        const response = await fetch(`https://api.europa.jobs/blog/article/${articleId}`);
+        const response = await fetch(`${ApiEndpoints.BLOG_ARTICLE_DETAILS}${articleId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch articles');
         }
         const data: Article = await response.json();
+        console.log(data);
         setArticle(data);
       }
       catch (error) {

@@ -38,12 +38,14 @@ interface RecommendedArticle {
     location: {
       countryName: string;
     };
-    salary: {
-      amountMin: number;
-      amountMax: number;
-      frequency: string;
-      currency: string;
-    };
+    salary: Salary;
+  }
+
+  interface Salary {
+    frequency: 'monthly' | 'hourly' | string;
+    amountMin?: number;
+    amountMax?: number;
+    currency?: string;
   }
   
   interface OffersProps {

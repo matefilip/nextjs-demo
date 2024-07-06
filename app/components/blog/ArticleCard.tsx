@@ -10,7 +10,7 @@ const Card: React.FC<ArticlePreviewProps> = ({ article }) => {
 <div
   className="relative bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition transform hover:scale-105 border border-gray-300"
   onClick={handleClick}
-  style={{ height: 'calc(100% - 2px)' }} // Adjusted height to ensure no white strip
+  style={{ height: 'calc(100% - 2px)' }}
 >
   <div className="relative h-full">
     <img src={article.mediaUrl} alt={article.title} className="w-full h-full object-cover" />

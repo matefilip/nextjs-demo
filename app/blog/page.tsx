@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Card from '../components/blog/ArticleCard';
 import Pagination from '../components/Pagination';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { ApiEndpoints } from '../components/blog/ApiKeys';
 
 const Blog = () => {
   const [articles, setArticles] = useState<ArticlePreview[]>([]);
@@ -17,7 +18,7 @@ const Blog = () => {
       setLoading(true);
 
       try {
-        const response = await fetch(`https://api.europa.jobs/blog?Type=candidate&pageNumber=${currentPage}`);
+        const response = await fetch(`${ApiEndpoints.BLOG_ARTICLE_LIST}&pageNumber=${currentPage}`);
         if (!response.ok) {
           throw new Error('Failed to fetch articles');
         }
